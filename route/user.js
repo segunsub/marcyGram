@@ -5,7 +5,7 @@ const router = express.Router();
 router.use('/', userController.middleware)
 router.get('/', userController.home)
 router.get('/login', userController.login)
-
+router.get('/signup', userController.signup)
 
 
 

@@ -11,6 +11,11 @@ const login = (req,res) => {
         title: 'login'
     })
 }
+const signup = (req,res) => {
+    res.render('signup', {
+        title: 'signup'
+    })
+}
 
 
 
@@ -21,5 +26,6 @@ const login = (req,res) => {
 module.exports = {
     middleware,
     home,
-    login
+    login,
+    signup
 }

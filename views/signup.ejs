@@ -4,6 +4,10 @@
     <div class="container">
     <form class="align-middle" action="/login" method="POST">
         <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Full Name">
+            <label for="floatingInput">Name</label>
+          </div>
+        <div class="form-floating mb-3">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Email address</label>
           </div>
@@ -11,9 +15,10 @@
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Password</label>
           </div>
-        <button type="submit" class="btn btn-primary">Log In</button>
-      </form>
-      <form action="/signup" method="GET">
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Profile Picture</label>
+            <input class="form-control" type="file" id="formFile">
+          </div>
         <button type="submit" class="btn btn-secondary">Sign Up</button>
       </form>
     </div>

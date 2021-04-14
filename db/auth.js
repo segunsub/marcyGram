@@ -9,7 +9,7 @@ class Auth {
     // //take in a token and return a user's id
     // static decryptToken(token){
     //   return jwt.verify(token, "thisistheway").id
-    // }
+    // } 
     static session() {
         return 'marcyGramApp'
     }

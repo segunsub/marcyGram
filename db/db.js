@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { Pool } = require('pg')
+const { Pool } = require('pg') 
 
 const connectionLocal = {
   user: process.env.DB_USER,

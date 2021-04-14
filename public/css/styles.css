@@ -1,3 +1,96 @@
 #login {
     margin: 10px;
 }
+#home {
+    margin: 5px;
+}
+body {
+    background: black;
+    /* overflow-y: hidden; */
+}
+#navBar {
+    background: black;
+    margin-bottom: 0;
+}
+
+.homeIcon {
+    color: white;
+}
+
+.homeIcon:hover {
+    color: blue;
+}
+.fixed-top {
+    top: -5px;
+}
+#name{
+    font-family: cursive;
+    color: white;
+}
+
+#editUser {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3em;
+}
+html {
+    overflow:   scroll;
+  }
+::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* make scrollbar transparent */
+  }
+#linkProfile {
+    display: flex;
+    justify-content: center;
+}
+
+#editProfile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3em;
+    justify-content: space-between;
+}
+
+#edit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+#commentForm {
+    width: 90vw;
+}
+.underNav {
+    margin-top: 4.8em;
+}
+#navIcons {
+    display: flex;
+    align-items: center;
+}
+.iconSpace {
+    margin-right: .5em;
+}
+.format {
+    background: white;
+    color: black;
+    border-radius: 5px;
+    height: 10em;
+    padding-top: 5px;
+    margin: 1px;
+}
+.wide {
+    width: 150px!important;
+}
+.videoGrid {
+    height: 150px;
+    width: 150px;
+    background: white;
+}
+#profileStack {
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-top: 4.6em;
+}
+
+ 

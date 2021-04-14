@@ -1,0 +1,98 @@
+<%- include('./partials/header.ejs') %>
+
+<body id="home">
+    <%- include('./partials/navbar.ejs') %>
+    <div class="container underNav" style="padding: 0;">
+        <div class="ui card fluid" style=" background: black;color: white;">
+            <div class="content">
+              <div class="right floated meta" style="color: white;">14h</div>
+              <img class="ui avatar image" src="<%= image %>" /> <%= user.name %> 
+              <!-- <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot -->
+            </div>
+            <div class="image">
+              <!-- <div class="ui inverted segment" style="margin: 10px;">
+                <p>I'm here to tell you something, and you will probably read me first.</p>
+              </div> -->
+              <img  src="<%= image %>" alt="postImage">
+            </div>
+            <div class="content">
+              <span class="right floated" >
+                <i class="heart outline like icon" id="likeIcon"></i>
+                17 likes
+              </span>
+              <i class="comment icon"></i>
+              3 comments
+            </div>
+            <div class="extra content">
+              <div class="ui large fluid transparent left icon input">
+                <form action="" method="post" class="ui form " id="commentForm">
+                 <div class="ui inverted segment">
+                  <div class="ui fluid inverted transparent icon input">
+                    <input type="text" placeholder="Add Comment..." style="color: rgb(233 233 233);" >
+                    <i class="comment icon"></i>
+                  </div>
+                </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="postChoices" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#upload" data-bs-whatever="What's On Your Mind?" data-bs-dismiss="modal">Post Text</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#upload" data-bs-whatever="Photos" data-bs-dismiss="modal">Photos</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#upload" data-bs-whatever="Videos" data-bs-dismiss="modal">Video</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="upload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/app/users/<%= user.id %>/post" method="post" enctype="multipart/form-data">
+          <div class="mb-3" id="fileUpload">
+            <label for="messagetext" class="col-form-label">Text</label>
+            <textarea class="form-control" name="messagetext"id="message-text"></textarea>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary"  value="Post">
+        <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="postFile">Post</button> -->
+        </form>
+          <!-- <button type="button" class="btn btn-primary">Post</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>
+
+<!-- https://pbs.twimg.com/profile_images/1103012910534742017/MOM3aYU5_400x400.png -->

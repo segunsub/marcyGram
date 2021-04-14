@@ -2,25 +2,25 @@
 
 <body id="login">
     <div class="container">
-    <form class="align-middle" action="/login" method="POST">
+    <form class="align-middle" action="/signup" method="POST" enctype="multipart/form-data">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="Full Name">
-            <label for="floatingInput">Name</label>
+            <input type="text" class="form-control"  name="username" placeholder="FullName" required>
+            <label for="username">Name</label>
           </div>
         <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
+            <input type="email" class="form-control" name="useremail" placeholder="name@example.com" required>
+            <label for="useremail">Email address</label>
           </div>
           <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+            <input type="password" class="form-control"  name="userpassword" placeholder="Password" required>
+            <label for="userpassword">Password</label>
           </div>
           <div class="mb-3">
             <label for="formFile" class="form-label">Profile Picture</label>
-            <input class="form-control" type="file" id="formFile">
+            <input class="form-control" type="file" name="formFile"  accept="image/*">
           </div>
         <button type="submit" class="btn btn-secondary">Sign Up</button>
       </form>
     </div>
-</body>
+</body> 
 </html>

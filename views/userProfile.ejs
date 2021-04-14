@@ -1,0 +1,90 @@
+<%- include('./partials/header.ejs') %>
+
+<body id="userProfile">
+  <%- include('./partials/navbar.ejs') %>
+  <div class="container underNav">
+    <div id="editUser">
+      <% if (user.file_src) { %>
+        <img class="ui small circular image" src="<%= user.file_src %>"> 
+       <% } else { %>
+        <img class="ui small circular image" src="<%= user.pfpurl %>"> 
+      <% } %>
+      
+      <div class = "fliud container" id="linkProfile">
+        <a href="/app/users/<%= user.id %>/edit" class="ui button" >Edit Profile</a>
+      </div>
+      <form class = "fliud container" action="/app/users/<%= user.id%>/logout" method = "POST">
+          <button class="ui button"> Log Out </button>  
+      </form>
+      
+      
+    </div>
+    
+  </div>
+    <div class="ui grid container" style="background:black;border-radius: 15px;padding-left: 20px;" id="gridContainer">
+      <% posts.forEach(element => { %>
+        <% if (element.post_content) { %>
+            <div class="wide column format" style="height: 150px;" id="<%= element.id %> ">
+              <p ><%= element.post_content %> </p>
+            </div>
+         <% } else { %>
+                <% if (element.file_type.includes('image')) { %>
+                  <img class="ui small rounded image" src="<%= element.post_src %>" alt="imgPost" style="padding: 2px;background: white;" id="<%= element.id %> ">
+                 <% } else { %>
+                  <video controls="" autoplay="none" name="media" class="videoGrid" id="<%= element.id %> ">
+                    <source src="<%= element.post_src %>" type=<%= element.file_type %>>
+                  </video>
+                <% } %>
+        <% } %>
+      <% }) %>
+      </div>
+ 
+
+
+
+
+      <div class="modal fade" id="postChoices" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New Post</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#upload" data-bs-whatever="What's On Your Mind?" data-bs-dismiss="modal">Post Text</button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#upload" data-bs-whatever="Photos" data-bs-dismiss="modal">Photos</button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#upload" data-bs-whatever="Videos" data-bs-dismiss="modal">Video</button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      <div class="modal fade" id="upload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/app/users/<%= user.id %>/post" method="post" enctype="multipart/form-data">
+                <div class="mb-3" id="fileUpload">
+                  <label for="messagetext" class="col-form-label">Text</label>
+                  <textarea class="form-control" name="messagetext"id="message-text"></textarea>
+                </div>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <input type="submit" class="btn btn-primary"  value="Post">
+              <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="postFile">Post</button> -->
+              </form>
+
+
+</body>
+</html>

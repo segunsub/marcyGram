@@ -1,0 +1,40 @@
+<%- include('./partials/header.ejs') %>
+
+<body id="userProfile">
+  <%- include('./partials/navbar.ejs') %>
+  <div class="container underNav">
+    <div id="editProfile">
+      <img class="ui tiny circular image" src="<%= user.file_src %> ">
+      <div class = "fluid container" id = "edit">
+        <h5 style="color: white;"> <%= user.name %> </h5>
+        <a href="">change profile pic</a>
+      </div>
+      
+    </div>
+    
+  </div>
+  <div class="container">
+    <form class="align-middle" action="/app/users/<%= user.id %>?_method=PATCH" method="POST" enctype="multipart/form-data">
+        <div class="form-floating mb-3 ">
+            <input type="text" class="form-control"  name="name" placeholder="FullName" required>
+            <label for="name">Name</label>
+          </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control " name="email" placeholder="name@example.com" required>
+            <label for="email">Email address</label>
+          </div>
+          <div class="form-floating" style = "margin-bottom:20px">
+            <input type="password" class="form-control <%= check %> "  name="userpassword" placeholder="Password" required>
+          <% if (check === 'is-invalid') { %>
+            <div class="invalid-feedback">The Correct Password Is Required To Update Profile</div>
+          <% } %>
+            <label for="userpassword">Password</label>
+          </div>
+          
+        <button type="submit" class="btn btn-secondary">Update</button>
+      </form>
+    </div>
+   
+ 
+</body>
+</html>

@@ -1,0 +1,29 @@
+<%- include('./partials/header.ejs') %>
+
+<body id="follow">
+    <%- include('./partials/navbar.ejs') %>
+    <div class="ui three doubling cards" id="profileStack">
+  <% array.forEach(element => { %>
+        <div class="card">
+          <div class="image">
+            <% if (element.file_src) { %>
+              <img src="<%= element.file_src %> ">
+             <% } else { %>
+              <img src="<%= element.pfpurl %> ">
+            <% } %>
+          </div>
+          <div class="content">
+            <a class="header"><%= element.name %> </a>
+          </div>
+          <div class="extra content">
+            <i class="book icon"></i>
+              <%= element.postCount %>  Posts
+            <div class="right floated">
+                <i class="user plus icon" id="addUser"></i>
+            </div>
+          </div>
+        </div>
+  <% }) %>
+      
+</body>
+</html>

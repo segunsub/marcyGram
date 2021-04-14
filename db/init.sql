@@ -5,21 +5,22 @@ DROP TABLE IF EXISTS comments CASCADE;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    name text,
-    email text,
-    encrypted_password text,
-    pfpurl text DEFAULT 'https://img.icons8.com/carbon-copy/2x/image.png',
-    img_path text,
+    name TEXT,
+    email TEXT,
+    encrypted_password TEXT,
+    pfpurl TEXT DEFAULT 'https://img.icons8.com/carbon-copy/2x/image.png',
+    file_src TEXT,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
-SET TIMEZONE = 'GMT';
+SET TIMEZONE = 'GMT'; 
 
 CREATE TABLE posts(
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
     likes_count INT,
     post_content TEXT,
+    post_src TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 

@@ -5,7 +5,7 @@ function init() {
  postDropDown()
 //  deletePost()
 limitVid()
-
+pfpupload()
 }
 
 
@@ -55,6 +55,7 @@ function postDropDown() {
          <hr>
           <input type="file" class="ui button" name="file" accept="image/*">`
        }else if(recipient === "Videos") {
+        limitVid()
          media.innerHTML = `
          <label for="file" class="form-label">Post Video</label>
          <hr>
@@ -87,4 +88,33 @@ console.log(input)
       //  if(files[0].size > ) 
      })
    }
+}
+function pfpupload() {
+  const file = document.getElementById('pfpsupload')
+  if (file) {
+    file.addEventListener('change', async() => {
+      await postImage(file.name)
+    })
+  }
+}
+
+async function postImage(id) {
+const formData = new FormData($("#pfpsupload")[0])
+const img = document.getElementById('pfpImg')
+$.ajax({
+    url : `/app/users/${id}`, // Url of backend (can be python, php, etc..)
+    type: "POST", // data type (can be get, post, put, delete)
+    data : formData, // data in json format
+   success: function(response, textStatus, jqXHR) {
+    	img.src = response;
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+		console.log(jqXHR);
+      	console.log(textStatus);
+      	console.log(errorThrown);
+    },
+    cache: false,
+        contentType: false,
+        processData: false
+});
 }

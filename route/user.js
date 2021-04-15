@@ -16,6 +16,7 @@ router.get('/app/users/:id/edit', userController.editProfile)
 router.get('/app/users/:id/follow', userController.follow)
 router.post('/app/users/:id/logout', userController.logout)
 router.patch('/app/users/:id', userController.update)
+router.post('/app/users/:id', userController.updatepfp)
 router.post('/app/users/:id/post', postRoute)
 
 //api routes

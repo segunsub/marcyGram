@@ -145,6 +145,7 @@ const userprofile = async (req, res) => {
 }
 
 const editProfile = async (req, res) => {
+    res.status(200)
     res.render('editProfile', {
         title: 'Edit Profile',
         user: req.session.user,
@@ -157,7 +158,7 @@ const follow = async (req, res) => {
     await Users.getAllPosts().then(posts => {
         users.map((each, i) => {each.postCount = posts[i].count})
         const all = users.filter(each => each.id !== req.session.user.id)
-         
+         res.status(200)
         res.render('follow', {
             title: 'Follow User',
             user: req.session.user,
@@ -169,7 +170,7 @@ const follow = async (req, res) => {
 }
 const update = async (req, res) => {
     console.log(req.body)
-    const {username,useremail,userpassword} = req.body
+    const {userpassword} = req.body
     await Users.getUser(req.params.id).then(async user => {
         await bcrypt.compare(userpassword, user.encrypted_password).then(async verify => {
           if(verify) {
@@ -192,7 +193,27 @@ const logout = async (req, res) => {
     req.session.destroy();
     res.redirect('/');
 }
+const updatepfp = async (req, res) => {
+    try {
+        if(req.files) {
+           
+            console.log(req.files)
+            const id = parseInt(req.params.id)
+            const file = req.files.pfp
+            const {uploadFile} = upload
+              await uploadFile(file).then(async data => {
+                  console.log(data)
+                  Users.updatePfp(file,id).then(link => {
+                     res.status(200).send(link.file_src)
+                  })
+              })
+        }
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
 
+}
 
 
 
@@ -208,5 +229,6 @@ module.exports = {
     editProfile,
     follow,
     logout,
-    update
+    update,
+    updatepfp
 }

@@ -4,10 +4,23 @@
   <%- include('./partials/navbar.ejs') %>
   <div class="container underNav">
     <div id="editProfile">
-      <img class="ui tiny circular image" src="<%= user.file_src %> ">
+      <img class="ui small circular image" src="<%= user.file_src %> " id="pfpImg">
       <div class = "fluid container" id = "edit">
-        <h5 style="color: white;"> <%= user.name %> </h5>
-        <a href="">change profile pic</a>
+        <h1 style="color: white;margin-bottom: 5px;"> <%= user.name %> </h1>
+        <form action="" enctype="multipart/form-data" id="pfpsupload" name="<%= user.id %>">
+          <label class="btn btn-primary">
+            <i class="fa fa-image"></i> Change Profile Pic<input type="file" style="display: none;"  name="pfp" accept="image/*" id="pfpFile" >
+          </label>
+          <!-- <div class="ui vertical animated button" tabindex="0">
+            <div class="hidden content">Shop</div>
+            <div class="visible content">
+              <input type="submit" value="upload" >
+              <i class="upload icon"></i> 
+            </div> -->
+            <!-- <input type="submit" value="upload" class="ui button"> -->
+          <!-- </div> -->
+        </form>
+        <!-- <a href="">change profile pic</a> -->
       </div>
       
     </div>

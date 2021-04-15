@@ -45,6 +45,12 @@ class Users{
       const queryText = "UPDATE users SET name = $1, email = $2 WHERE id = $3";
       return db.query(queryText,[name,email,id]).then(results => results.rows[0]);
     }
+    static updatePfp(pfp,id) {
+      const {name} = pfp
+      const fileSrc = `https://d3ha1ibsrmz5u7.cloudfront.net/${name}`
+      const queryText = "UPDATE users SET file_src = $1 WHERE id = $2 RETURNING *";
+      return db.query(queryText,[fileSrc,id]).then(results => results.rows[0])
+    }
 
 }
 

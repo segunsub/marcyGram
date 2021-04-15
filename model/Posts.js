@@ -23,6 +23,10 @@ class Posts{
        const queryText = 'SELECT * FROM posts WHERE user_id = $1';
        return db.query(queryText,[userID]).then(results => results.rows[0]);
    }
+   static deletePost (postId,userId){
+       const queryText = "DELETE FROM posts WHERE id = $1 And user_id = $2 RETURNING *";
+       return db.query(queryText,[postId, userId]);
+   }
 
  
 

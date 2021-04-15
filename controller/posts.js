@@ -25,14 +25,29 @@ const userPost = async (req,res) => {
         console.log(error)
         res.sendStatus(500)
     }
-
-  
 }
 
+const deletePost = async (req, res)=>{
+    try{
+        // console.log(req)
+        const postId = req.params.id;
+        const userId = req.session.user.id;
+        // console.log(postId,userid)
+        await Posts.deletePost(postId, userId).then(resp => {
+            res.status(200).send({"ok":`${resp.rows[0].id}`})
+        });
+        
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500);
+    }
+}
 
 
 
 
 module.exports = {
     userPost,
+    deletePost
 }   

@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/app/users/:id/post', postController.userPost);
-
+router.delete('/app/users/:id/posts/:id', postController.deletePost)
 
  
 

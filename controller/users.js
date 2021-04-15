@@ -149,14 +149,19 @@ const editProfile = async (req, res) => {
     res.render('editProfile', {
         title: 'Edit Profile',
         user: req.session.user,
-        check: ''
     })
 }
 
 const follow = async (req, res) => {
    await Users.getUsers().then(async users => {    
     await Users.getAllPosts().then(posts => {
-        users.map((each, i) => {each.postCount = posts[i].count})
+        users.map((each, i) => {
+            if(posts[i]) {
+                each.postCount = posts[i].count
+            }else{
+                each.postCount = 0
+            }
+            })
         const all = users.filter(each => each.id !== req.session.user.id)
          res.status(200)
         res.render('follow', {
@@ -170,19 +175,16 @@ const follow = async (req, res) => {
 }
 const update = async (req, res) => {
     console.log(req.body)
+    
     const {userpassword} = req.body
     await Users.getUser(req.params.id).then(async user => {
         await bcrypt.compare(userpassword, user.encrypted_password).then(async verify => {
           if(verify) {
              user = Object.assign(user,req.body)
              req.session.user = user
-             await Users.updateUser(user).then(res.status(200).redirect(`/app/users/${req.params.id}`))
+             await Users.updateUser(user).then(res.status(200).send({"location":`/app/users/${req.params.id}`}))
           }else {
-            res.render('editProfile', {
-                title: 'Edit Profile',
-                user: req.session.user,
-                check: 'is-invalid'
-            })
+              res.status(200).send({"check" : 'is-invalid'})
           }
         })
     })
@@ -204,6 +206,7 @@ const updatepfp = async (req, res) => {
               await uploadFile(file).then(async data => {
                   console.log(data)
                   Users.updatePfp(file,id).then(link => {
+                      req.session.user.file_src = link.file_src
                      res.status(200).send(link.file_src)
                   })
               })
@@ -215,7 +218,16 @@ const updatepfp = async (req, res) => {
 
 }
 
-
+const deleteUser = async (req, res) => {
+    try {
+        const id = req.params.id;
+        req.session.destroy();
+        await Users.deleteUser(id)
+        res.status(200).send({"redirect":'/'})
+    } catch (error) {
+        res.status(500);
+    }
+}
 
 module.exports = {
     middleware,
@@ -230,5 +242,6 @@ module.exports = {
     follow,
     logout,
     update,
-    updatepfp
+    updatepfp,
+    deleteUser
 }

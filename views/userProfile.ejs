@@ -3,13 +3,15 @@
 <body id="userProfile">
   <%- include('./partials/navbar.ejs') %>
   <div class="container underNav">
+    <h1 id="userName"> <%= user.name %></h1>
+      
     <div id="editUser">
+  
       <% if (user.file_src) { %>
         <img class="ui small circular image" src="<%= user.file_src %>"> 
        <% } else { %>
         <img class="ui small circular image" src="<%= user.pfpurl %>"> 
       <% } %>
-      
       <div class = "fliud container" id="linkProfile">
         <a href="/app/users/<%= user.id %>/edit" class="ui button" >Edit Profile</a>
       </div>
@@ -21,27 +23,25 @@
     </div>
     
   </div>
+  
     <div class="ui grid container" style="background:black;border-radius: 15px;padding-left: 20px;" id="gridContainer">
       <% posts.forEach(element => { %>
         <% if (element.post_content) { %>
-            <div class="wide column format" style="height: 150px;" id="<%= element.id %> ">
+            <div title="text" class="wide column format" style="height: 150px;" id="<%= element.id %> "  data-bs-whatever="post">
               <p ><%= element.post_content %> </p>
             </div>
          <% } else { %>
                 <% if (element.file_type.includes('image')) { %>
-                  <img class="ui small rounded image" src="<%= element.post_src %>" alt="imgPost" style="padding: 2px;background: white;" id="<%= element.id %> ">
+                  <img title="image" class="ui small rounded image" src="<%= element.post_src %>" alt="imgPost" style="padding: 2px;background: white;" id="<%= element.id %> " data-bs-whatever="post"/>
                  <% } else { %>
-                  <video controls="" autoplay="none" name="media" class="videoGrid" id="<%= element.id %> ">
-                    <source src="<%= element.post_src %>" type=<%= element.file_type %>>
-                  </video>
+                    <video title="video" controls="" name="media" class="videoGrid" id="<%= element.id %> " data-bs-whatever="post">
+                      <source src="<%= element.post_src %>" type=<%= element.file_type %>>
+                    </video>
                 <% } %>
         <% } %>
       <% }) %>
       </div>
  
-
-
-
 
       <div class="modal fade" id="postChoices" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -60,8 +60,7 @@
             </div>
           </div>
         </div>
-      </div>
-      
+      </div> 
       
       
       <div class="modal fade" id="upload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -82,9 +81,37 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <input type="submit" class="btn btn-primary"  value="Post">
-              <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="postFile">Post</button> -->
-              </form>
+              </form> 
+              </div>
+            </div>
+            </div>
+          </div>  
 
 
+              <div class="modal fade" id="postsModal"  role="dialog">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-titlesz" >Delete Post</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" >
+                      <img src="" alt="" id="postImg" name="img" class="ui medium rounded image" style="display: none;">
+                      <video controls="" autoplay="0" name="video" class="ui medium rounded image" id="postVid" style="display: none;">
+                        <source src="" type="video/mp4" id="videPlay">
+                      </video>
+                      <div class="ui medium rounded image" name="text" style="height: 150px;display: none;" id="parentText">
+                        <p id="postText"></p>
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="ui olive button cc_pointer" data-bs-dismiss="modal" >Close</button>
+                      <button type="button" class="btn btn-danger" title="<%= user.id %>" id="deletePostBtn" data-bs-dismiss="modal">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
 </body>
 </html>

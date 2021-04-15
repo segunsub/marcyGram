@@ -36,8 +36,7 @@ class Users{
     
     }
     static getAllPosts() {
-      const queryText = `SELECT posts.user_id,COUNT(user_id) FROM posts JOIN users ON user_id = users.id GROUP BY posts.user_id
-      ORDER BY posts.user_id`
+      const queryText = "SELECT posts.user_id,COUNT(user_id) FROM posts JOIN users ON user_id = users.id GROUP BY posts.user_id ORDER BY posts.user_id"
       return db.query(queryText).then(results => results.rows);
     }
     static updateUser(obj) {
@@ -51,7 +50,16 @@ class Users{
       const queryText = "UPDATE users SET file_src = $1 WHERE id = $2 RETURNING *";
       return db.query(queryText,[fileSrc,id]).then(results => results.rows[0])
     }
+    static deleteUser (id) {
+      const queryPost = 'DELETE FROM posts WHERE user_id = $1;'
+      const queryText = 'DELETE FROM users WHERE id = $1;';
+        db.query(queryPost,[id]);
+      return db.query(queryText,[id]);
+    }
+
 
 }
 
 module.exports = Users
+            
+          

@@ -3,10 +3,16 @@
 <body id="home">
     <%- include('./partials/navbar.ejs') %>
     <div class="container underNav" style="padding: 0;">
+      
         <div class="ui card fluid" style=" background: black;color: white;">
             <div class="content">
               <div class="right floated meta" style="color: white;">14h</div>
-              <img class="ui avatar image" src="<%= image %>" /> <%= user.name %> 
+              <% if (image) { %>
+                <img class="ui avatar image" src="<%= image %>" /> <%= user.name %> 
+               <% } else { %>
+                <img class="ui avatar image" src="<%= user.pfpurl %>" style="background: white;"/> <%= user.name %> 
+              <% } %>
+             
               <!-- <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot -->
             </div>
             <div class="image">

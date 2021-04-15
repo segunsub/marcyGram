@@ -17,7 +17,9 @@ router.get('/app/users/:id/follow', userController.follow)
 router.post('/app/users/:id/logout', userController.logout)
 router.patch('/app/users/:id', userController.update)
 router.post('/app/users/:id', userController.updatepfp)
-router.post('/app/users/:id/post', postRoute)
+router.delete('/app/users/:id', userController.deleteUser)
+router.delete('/app/users/:id/posts/:id', postRoute)
+router.post('/app/users/:id/post', postRoute)  
 
 //api routes
 

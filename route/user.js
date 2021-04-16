@@ -18,6 +18,7 @@ router.post('/app/users/:id/logout', userController.logout)
 router.patch('/app/users/:id', userController.update)
 router.post('/app/users/:id', userController.updatepfp)
 router.delete('/app/users/:id', userController.deleteUser)
+router.post('/app/users/:id/follow/:id', userController.followUser)
 router.delete('/app/users/:id/posts/:id', postRoute)
 router.post('/app/users/:id/post', postRoute)  
 

@@ -18,8 +18,9 @@
           <div class="extra content">
             <i class="book icon"></i>
               <%= element.postCount %>  Posts
-            <div class="right floated">
-                <i class="user plus icon" id="addUser"></i>
+            <div class="right floated" >
+              <!-- <i class="bi bi-person-check-fill"></i>    -->
+              <i class="user plus icon" id="addUser" title="<%= element.id %>" tabindex="<%= user.id %>"></i>
             </div>
           </div>
         </div>

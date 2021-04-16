@@ -9,6 +9,7 @@ limitVid()
 pfpupload()
 deletePosts()
 updateprofile()
+followUser()
 }
 
 
@@ -230,11 +231,6 @@ function openModal(e) {
      } )
   })
     $("#postsModal").modal('show');
-  // $("#myModal").modal()
-  // console.log('click',e.target)
-//   console.log(e.target.title)
-// console.log(e.target)
-  // e.target.removeEventListener("click",openModal)
 }
 
 async function deletepost(postId,e) {
@@ -250,4 +246,36 @@ success: function(result) {
   container.removeChild(div)
 }
 })
+}
+
+function followUser() {
+  const followdiv = document.getElementById('profileStack')
+  if(followdiv) {
+    // console.log(follow)
+    let children = followdiv.children
+    children = Array.from(children)
+    children.forEach(child => {
+      const div = child.children[2].children[1]
+      div.addEventListener('click', follow)
+    })
+  }
+}
+async function follow(e) {
+  const followIcon = e.path[0]
+   const userID = followIcon.tabIndex
+  const followId = followIcon.title
+  $.ajax({
+    url : `/app/users/${userID}/follow/${followId}`, // Url of backend (can be python, php, etc..)
+    type: "POST", // data type (can be get, post, put, delete)
+   success: function(response, textStatus, jqXHR) {
+     followIcon.classList = ['user icon']
+     console.log(response, textStatus, jqXHR)
+  },
+    error: function (jqXHR, textStatus, errorThrown) {
+		console.log(jqXHR);
+      	console.log(textStatus);
+      	console.log(errorThrown);
+    },
+});
+// followdiv.removeEventListener('click',follow)
 }

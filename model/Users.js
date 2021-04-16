@@ -56,6 +56,10 @@ class Users{
         db.query(queryPost,[id]);
       return db.query(queryText,[id]);
     }
+    static followUser(userId,followId) {
+      const queryText = 'INSERT INTO follows (user_id,follow_user_id) VALUES ($1,$2)'
+      return db.query(queryText,[userId,followId])
+    }
 
 
 }

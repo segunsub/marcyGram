@@ -228,7 +228,21 @@ const deleteUser = async (req, res) => {
         res.status(500);
     }
 }
+const followUser = async (req, res) => {
+    try {
+        const followId = req.params.id;
+        const userId = req.session.user.id
 
+
+        await Users.followUser(userId,followId).then(res.sendStatus(200))
+        // req.session.destroy();
+        // await Users.deleteUser(id)
+        // res.status(200).send({"redirect":'/'})
+    } catch (error) {
+        console.log(error)
+        res.status(500);
+    }
+}
 module.exports = {
     middleware,
     home,
@@ -243,5 +257,6 @@ module.exports = {
     logout,
     update,
     updatepfp,
-    deleteUser
+    deleteUser,
+    followUser
 }

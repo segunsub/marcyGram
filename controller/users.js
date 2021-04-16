@@ -35,12 +35,17 @@ const home = async (req, res) => {
     //    const fileContents = Buffer.from(arrayBuffer, 'base64')
     // fileContents.toString('base64')
     // console.log(req.session)
-    const imgLink = req.session.user.file_src
-       res.status(200).render('home', {
-           title: 'Home',
-           image: imgLink,
-           user: req.session.user
-       })
+        const id = parseInt(req.session.user.id)
+        await Users.followingsPosts(id).then(posts => {
+            console.log(posts.rows)
+
+            // const imgLink = req.session.user.file_src
+            res.status(200).render('home', {
+                title: 'Home',
+                posts: posts.rows,
+                user: req.session.user
+            })
+        })
     }else {
         res.redirect('/login')
     }

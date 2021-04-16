@@ -60,6 +60,12 @@ class Users{
       const queryText = 'INSERT INTO follows (user_id,follow_user_id) VALUES ($1,$2)'
       return db.query(queryText,[userId,followId])
     }
+    static followingsPosts(id){
+      const queryText = `SELECT follows.user_id,follows.follow_user_id,posts.likes_count,posts.post_content,posts.post_src,posts.file_type,posts.created_at,users.name,users.pfpurl,users.file_src 
+                         FROM follows Join posts ON follows.follow_user_id = posts.user_id JOIN users on follows.follow_user_id = users.id Where follows.user_id = $1 ORDER BY posts.created_at DESC`
+      return db.query(queryText,[id]);
+    }
+
 
 
 }

@@ -15,7 +15,7 @@ exports.up = function(knex) {
     CREATE TABLE posts(
         id SERIAL PRIMARY KEY,
         user_id INT REFERENCES users(id),
-        likes_count INT,
+        likes_count INT DEFAULT 0,
         post_content TEXT,
         post_src TEXT,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT now()

@@ -2,31 +2,41 @@
 
 <body id="home">
     <%- include('./partials/navbar.ejs') %>
-    <div class="container underNav" style="padding: 0;">
+    <div class="container underNav" style="padding: 0;" id="eachPost">
       
-        <div class="ui card fluid" style=" background: black;color: white;">
+      <% posts.forEach(element => { %>
+            <div class="ui card fluid" style=" background: black;color: white; margin-bottom: 1.5em;">
             <div class="content">
               <div class="right floated meta" style="color: white;">14h</div>
-              <% if (image) { %>
-                <img class="ui avatar image" src="<%= image %>" /> <%= user.name %> 
+              <% if (element.file_src) { %>
+                <img class="ui avatar image" src="<%= element.file_src %>"/> <%= element.name %> 
                <% } else { %>
-                <img class="ui avatar image" src="<%= user.pfpurl %>" style="background: white;"/> <%= user.name %> 
+                <img class="ui avatar image" src="<%= element.pfpurl %>" style="background: white;"/> <%= element.name %> 
               <% } %>
              
               <!-- <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot -->
             </div>
             <div class="image">
-              <!-- <div class="ui inverted segment" style="margin: 10px;">
-                <p>I'm here to tell you something, and you will probably read me first.</p>
-              </div> -->
-              <img  src="<%= image %>" alt="postImage">
+              <% if (element.post_content) { %>
+              <div class="ui inverted segment" style="margin: 10px;">
+                  <p style="font-size: x-large;font-family: cursive;"><%= element.post_content %> </p>
+              </div>
+             <% } else { %>
+                    <% if (element.file_type.includes('image')) { %>
+                       <img  src="<%= element.post_src %>" alt="postImage">
+                     <% } else { %>
+                      <video title="video" controls="" name="media" id="" data-bs-whatever="post" style="width: 100%;"> 
+                        <source src="<%= element.post_src %> " type="<%= element.file_type %> ">
+                      </video>
+                    <% } %>
+            <% } %>
             </div>
             <div class="content">
               <span class="right floated" >
-                <i class="heart outline like icon" id="likeIcon"></i>
-                17 likes
+                <i class="heart outline like icon"></i>
+                <%= element.likes_count %> likes
               </span>
-              <i class="comment icon"></i>
+              <i class="comment icon" id="commentIcon"></i>
               3 comments
             </div>
             <div class="extra content">
@@ -43,6 +53,7 @@
               </div>
             </div>
           </div>
+          <% }) %>
     </div>
 
     <!-- Button trigger modal -->

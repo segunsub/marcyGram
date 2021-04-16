@@ -2,7 +2,7 @@ const CACHE_NAME = 'sw-cache';
 const toCache = [
   '/login',
   '/signup',
-  '/js/status.js'
+  '/js/status.js',
 //   '../views',
 //   '../views/partials'
 ];

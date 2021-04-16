@@ -5,7 +5,6 @@ function init() {
  like()
  postDropDown()
 //  deletePost()
-limitVid()
 pfpupload()
 deletePosts()
 updateprofile()
@@ -49,6 +48,7 @@ function postDropDown() {
         const recipient = button.getAttribute('data-bs-whatever')
         let modalTitle = exampleModal.querySelector('.modal-title')
         const media = document.getElementById('fileUpload')
+        media.addEventListener('click',limitVid)
         // var modalBodyInput = exampleModal.querySelector('.modal-body input')
          if(recipient === "Photos") {
            media.innerHTML = `
@@ -56,7 +56,7 @@ function postDropDown() {
            <hr>
             <input type="file" class="ui button" name="file" accept="image/*">`
          }else if(recipient === "Videos") {
-          limitVid()
+          
            media.innerHTML = `
            <label for="file" class="form-label">Post Video</label>
            <hr>
@@ -80,12 +80,23 @@ function postDropDown() {
 
 
 function limitVid() {
+  console.log('yes')
    const input = document.getElementById('videoInput')
    const span = document.getElementById('vidSpan')
-console.log(input)
+// console.log(input)
    if(input) {
      input.addEventListener('change', (e) => {
-       let files = input.files
+       const files = input.files[0].size
+       const fileName = input.files[0].name
+       const limit = 30000000
+       let size = Math.floor(files/1000000)
+       size = size.toFixed(2)
+       if(files > limit) {
+         alert('File too large, Wait time will be extended. You can close the modal and will get redirected when done.')
+         span.innerHTML = `File ${fileName} is <strong>${size}<strong><em>Mb</em>`
+       }else {
+         span.innerHTML = `File ${fileName} is <strong>${size}</strong><em>Mb</em> Est wait time <= 80secs`
+       }
        console.log(files)
 
       //  if(files[0].size > ) 
@@ -197,8 +208,6 @@ async function deleteUserProfile() {
     }
     })
 }
-
-
 
 function openModal(e) {
   const modal = document.getElementById('postsModal')

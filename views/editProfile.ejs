@@ -6,7 +6,7 @@
     <div id="editProfile">
       <img class="ui small circular image" src="<%= user.file_src %> " id="pfpImg">
       <div class = "fluid container" id = "edit">
-        <h1 style="color: white;margin-bottom: 5px;"> <%= user.name %> </h1>
+        <h1 style="color: white; margin-bottom: 5px;"> <%= user.name %> </h1>
         <form action="" enctype="multipart/form-data" id="pfpsupload" name="<%= user.id %>">
           <label class="btn btn-primary">
             <i class="fa fa-image"></i> Change Profile Pic<input type="file" style="display: none;"  name="pfp" accept="image/*" id="pfpFile" >

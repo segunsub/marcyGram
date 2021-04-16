@@ -7,7 +7,6 @@ router.post('/app/users/:id/post', postController.userPost);
 router.delete('/app/users/:id/posts/:id', postController.deletePost)
 
  
-
 // api route for users posts
 
 // gets api of all posts

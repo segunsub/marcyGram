@@ -1,6 +1,10 @@
 <%- include('./partials/header.ejs') %>
 
-<body id="login">
+<body id="login" style="border: 1px solid #ffffff;border-radius: 15px;margin: 2px;">
+  <div id = loginLogo class="container" style="display: flex;flex-direction: column;align-items: center;">
+    <h1 style="color: white;margin: 0;margin-top: 5px;font-family: cursive;">MarcyGram</h1>
+    <img src="https://i.ibb.co/stRRjjw/marcyicon-1.png" alt="" width="300" height="300">
+  </div>
     <div class="container">
     <form class="align-middle" action="/login" method="POST">
         <div class="form-floating mb-3">
@@ -10,11 +14,11 @@
           <div class="form-floating">
             <input type="password" class="form-control" name="userpassword" id="floatingPassword" placeholder="Password" required>
             <label for="userpassword">Password</label>
-          </div>
-        <button type="submit" class="btn btn-primary">Log In</button>
+          </div><br>
+        <button type="submit" class="ui inverted teal button cc_pointer fluid" >Log In</button><br>
       </form>
       <form action="/signup" method="GET">
-        <button type="submit" class="btn btn-secondary">Sign Up</button>
+        <button type="submit" class = "ui inverted blue button cc_pointer fluid">Sign Up</button>
       </form>
     </div>
 </body>

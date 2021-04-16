@@ -28,7 +28,7 @@
       <% posts.forEach(element => { %>
         <% if (element.post_content) { %>
             <div title="text" class="wide column format" style="height: 150px;" id="<%= element.id %> "  data-bs-whatever="post">
-              <p ><%= element.post_content %> </p>
+              <p style="font-size: x-large;font-family: cursive;"><%= element.post_content %> </p>
             </div>
          <% } else { %>
                 <% if (element.file_type.includes('image')) { %>

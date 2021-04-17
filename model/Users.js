@@ -35,6 +35,10 @@ class Users{
         return db.query(queryText, [id]).then(results => results.rows);
     
     }
+    static getUserPost (id){
+      const queryText = 'SELECT * FROM posts WHERE user_id = $1;';
+      return db.query(queryText, [id]).then(results => results.rows);
+    }
     static getAllPosts() {
       const queryText = "SELECT posts.user_id,COUNT(user_id) FROM posts JOIN users ON user_id = users.id GROUP BY posts.user_id ORDER BY posts.user_id"
       return db.query(queryText).then(results => results.rows);

@@ -36,6 +36,18 @@ class Posts{
        const queryText = "SELECT * FROM comments WHERE post_id = $1"
        return db.query(queryText,[postId])
    }
+   static getAllPosts(){
+       const queryText = 'SELECT * FROM posts;'
+       return db.query(queryText);
+   }
+   static getPost(id){
+    const queryText = 'SELECT * FROM posts WHERE id = $1;';
+    return db.query(queryText, [id]).then(results => results.rows[0]);
+   }
+   static deletePost(id){
+    const queryText = 'DELETE FROM posts WHERE id = $1;';
+    return db.query(queryText,[id]);
+   }
 
  
 

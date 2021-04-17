@@ -30,8 +30,15 @@ router.post('/app/users/:id/post', postRoute)
 router.get('/api/users', jsonController.getUsers);
 
 //gets single users
-router.get('/api/users/:id', jsonController.getSingleUser)
+router.get('/api/users/:id', jsonController.getSingleUser);
 
+// gets postd by specfic user
+router.get('/api/posts/:id', jsonController.seePostsByUser);
 
+// sign up user
+router.get('/api/signup', jsonController.signUpAPI);
+
+// login  user
+router.get('/api/login', jsonController.loginAPI);
 
 module.exports = router  

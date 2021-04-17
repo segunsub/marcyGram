@@ -36,14 +36,14 @@ const home = async (req, res) => {
     // fileContents.toString('base64')
     // console.log(req.session)
         const id = parseInt(req.session.user.id)
-        await Users.followingsPosts(id).then(posts => {
-            console.log(posts.rows)
-
-            // const imgLink = req.session.user.file_src
+        await Users.followingsPosts(id).then(async posts => {
+            await Users.commentCount().then(comments => {
             res.status(200).render('home', {
                 title: 'Home',
                 posts: posts.rows,
+                feed: comments.rows,
                 user: req.session.user
+            })
             })
         })
     }else {

@@ -9,23 +9,23 @@
             <div class="content">
               <div class="right floated meta" style="color: white;">14h</div>
               <% if (element.file_src) { %>
-                <img class="ui avatar image" src="<%= element.file_src %>"/> <%= element.name %> 
+                <img class="ui avatar image" id="<%= element.id %>" src="<%= element.file_src %>"/> <%= element.name %> 
                <% } else { %>
-                <img class="ui avatar image" src="<%= element.pfpurl %>" style="background: white;"/> <%= element.name %> 
+                <img class="ui avatar image" id="<%= element.id %>" src="<%= element.pfpurl %>" style="background: white;"/> <%= element.name %> 
               <% } %>
              
               <!-- <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot -->
             </div>
             <div class="image">
               <% if (element.post_content) { %>
-              <div class="ui inverted segment" style="margin: 10px;">
-                  <p style="font-size: x-large;font-family: cursive;"><%= element.post_content %> </p>
+              <div class="ui inverted segment" style="margin: 10px;" id="<%= element.id %>">
+                  <p style="font-size: x-large;font-family: cursive;" ><%= element.post_content %> </p>
               </div>
              <% } else { %>
                     <% if (element.file_type.includes('image')) { %>
-                       <img  src="<%= element.post_src %>" alt="postImage">
+                       <img  src="<%= element.post_src %>" alt="postImage" id="<%= element.id %>">
                      <% } else { %>
-                      <video title="video" controls="" name="media" id="" data-bs-whatever="post" style="width: 100%;"> 
+                      <video title="video" controls="" name="media" id="<%= element.id %>" data-bs-whatever="post" style="width: 100%;"> 
                         <source src="<%= element.post_src %> " type="<%= element.file_type %> ">
                       </video>
                     <% } %>
@@ -37,14 +37,23 @@
                 <%= element.likes_count %> likes
               </span>
               <i class="comment icon" id="commentIcon"></i>
-              3 comments
+              <a>
+                <% feed.forEach(feeds => { %>
+                  <% if (element.id === feeds.id) { %>
+                    <%= feeds.count %>  
+                  <% } %> 
+             <% }) %>
+              comments
+              </a>
             </div>
+            <span id="<%= element.id %>" title="<%= element.user_id %>" style="padding-right: 1em;padding-left: 1em;"></span>
             <div class="extra content">
               <div class="ui large fluid transparent left icon input">
                 <form action="" method="post" class="ui form " id="commentForm">
                  <div class="ui inverted segment">
                   <div class="ui fluid inverted transparent icon input">
-                    <input type="text" placeholder="Add Comment..." style="color: rgb(233 233 233);" >
+                    <label for="comment"></label>
+                    <input type="text" placeholder="Add Comment..." style="color: rgb(233 233 233);" name="<%= element.id %>">
                     <i class="comment icon"></i>
                   </div>
                 </div>
@@ -107,7 +116,22 @@
   </div>
 </div>
 
-
+<!-- comments Modal -->
+<div class="modal fade" id="commentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Comments</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

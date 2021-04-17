@@ -27,6 +27,15 @@ class Posts{
        const queryText = "DELETE FROM posts WHERE id = $1 And user_id = $2 RETURNING *";
        return db.query(queryText,[postId, userId]);
    }
+   static postComment(userId,postId,content) {
+       const {comment} = content
+       const queryText = "INSERT INTO comments (user_id,post_id,content) VALUES ($1, $2,$3)"
+       return db.query(queryText, [userId,postId,comment])
+   }
+   static getPostComments(postId) {
+       const queryText = "SELECT * FROM comments WHERE post_id = $1"
+       return db.query(queryText,[postId])
+   }
 
  
 

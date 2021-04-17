@@ -43,11 +43,30 @@ const deletePost = async (req, res)=>{
         res.status(500);
     }
 }
-
-
+const comment = async (req, res)=>{
+    try {
+        const postId = parseInt(req.params.id)
+        const userId = parseInt(req.session.user.id)
+        Posts.postComment(userId,postId,req.body).then(res.status(200).send('ok'))
+    } catch (error) {
+        res.sendStatus(500)
+    }
+}
+const getComments = async (req, res)=>{
+    try {
+        const postId = parseInt(req.params.id)
+        Posts.getPostComments(postId).then(resp => {
+            res.status(200).send(resp.rows)
+        })
+    } catch (error) {
+        res.sendStatus(500)
+    }
+}
 
 
 module.exports = {
     userPost,
-    deletePost
+    deletePost,
+    comment,
+    getComments
 }   

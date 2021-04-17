@@ -9,6 +9,8 @@ pfpupload()
 deletePosts()
 updateprofile()
 followUser()
+addComment()
+viewComments()
 }
 
 
@@ -49,7 +51,7 @@ function postDropDown() {
         let modalTitle = exampleModal.querySelector('.modal-title')
         const media = document.getElementById('fileUpload')
         media.addEventListener('click',limitVid)
-        // var modalBodyInput = exampleModal.querySelector('.modal-body input')
+        // const modalBodyInput = exampleModal.querySelector('.modal-body input')
          if(recipient === "Photos") {
            media.innerHTML = `
            <label for="file" class="form-label">Post Photos </label>
@@ -168,7 +170,7 @@ async function updateUserProfile() {
   const pass = document.getElementById('password')
   const mess = document.getElementById('message')
 
-  var formData = {
+  const formData = {
         'name'              : $('input[name=name]').val(),
         'email'             : $('input[name=email]').val(),
         'userpassword'      : $('input[name=userpassword]').val()
@@ -200,8 +202,8 @@ async function deleteUserProfile() {
   const deleteBtn = document.getElementById('deleteButton')
   const id = deleteBtn.name
     $.ajax({
-        type        : 'DELETE', // define the type of HTTP verb we want to use (POST for our form)
-        url         : `/app/users/${id}`, // the url where we want to POST
+        type        : 'DELETE', 
+        url         : `/app/users/${id}`, 
     success: function(result) {
       console.log(result)
       window.location.href = result.redirect
@@ -247,8 +249,8 @@ async function deletepost(postId,e) {
   const container = document.getElementById('gridContainer')
   console.log(div,container)
   $.ajax({
-    type        : 'DELETE', // define the type of HTTP verb we want to use (POST for our form)
-    url         : `/app/users/${e.title}/posts/${postId}`, // the url where we want to POST
+    type        : 'DELETE', 
+    url         : `/app/users/${e.title}/posts/${postId}`,
     dataType    : 'json',
 success: function(result) {
 
@@ -274,8 +276,8 @@ async function follow(e) {
    const userID = followIcon.tabIndex
   const followId = followIcon.title
   $.ajax({
-    url : `/app/users/${userID}/follow/${followId}`, // Url of backend (can be python, php, etc..)
-    type: "POST", // data type (can be get, post, put, delete)
+    url : `/app/users/${userID}/follow/${followId}`, 
+    type: "POST", 
    success: function(response, textStatus, jqXHR) {
      followIcon.classList = ['user icon']
      console.log(response, textStatus, jqXHR)
@@ -287,4 +289,88 @@ async function follow(e) {
     },
 });
 // followdiv.removeEventListener('click',follow)
+}
+function addComment() {
+  const commentForm = document.getElementById('eachPost')
+  if(commentForm) {
+     let form = Array.from(commentForm.children)
+     form.forEach(posts => {
+       const span = posts.children[3]
+       const formData = posts.children[4].children[0].children[0]
+      //  console.log(formData)
+       formData.addEventListener('submit', async(e) => {
+          await postComment(span,formData)
+          e.preventDefault()
+       })
+     })
+  }
+}
+
+async function postComment(span,form) {
+  // console.log(span.id)
+  const userId = span.title
+  const postId = span.id
+  const input = form.children[0].children[0].children[1]
+  const formData = {
+        'comment'              : $(`input[name=${span.id}]`).val()
+    };
+    $.ajax({
+      url : `/app/users/${userId}/posts/${postId}`, 
+      type: "POST",
+      data : formData, 
+      encode          : true,
+     success: function(response, textStatus, jqXHR) {
+       span.innerText = input.value
+       input.value = ''
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+      console.log(jqXHR);
+          console.log(textStatus);
+          console.log(errorThrown);
+      },
+  });
+}
+function viewComments() {
+  const commentForm = document.getElementById('eachPost')
+  if(commentForm) {
+    let form = Array.from(commentForm.children)
+    form.forEach(posts => {
+      const span = posts.children[3]
+      const commentA = posts.children[2].children[2]
+    commentA.addEventListener('click',() => {
+        const userId = span.title
+        const postId = span.id
+        $.ajax({
+          url : `/app/users/${userId}/posts/${postId}`,
+          type: "GET",  
+         success: function(response, textStatus, jqXHR) {
+           console.log(response)
+          modalComment(response)
+          $("#commentModal").modal('show');
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+          console.log(jqXHR);
+              console.log(textStatus);
+              console.log(errorThrown);
+          },
+      });
+      commentA.removeEventListener('click',posts)
+      })
+    })
+ }
+}
+function modalComment(comments) {
+  const commentModal = document.getElementById('commentModal')
+  if(commentModal) {
+    const body = commentModal.children[0].children[0].children[1]
+     if(comments.length){
+         comments.forEach(comment => {
+           const p = document.createElement('p')
+           p.innerText = comment.content
+           body.append(p)
+         })
+     }else {
+       body.innerText = 'No comments make some'
+     }
+  }
 }

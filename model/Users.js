@@ -61,12 +61,18 @@ class Users{
       return db.query(queryText,[userId,followId])
     }
     static followingsPosts(id){
-      const queryText = `SELECT follows.user_id,follows.follow_user_id,posts.likes_count,posts.post_content,posts.post_src,posts.file_type,posts.created_at,users.name,users.pfpurl,users.file_src 
+      const queryText = `SELECT follows.user_id,follows.follow_user_id,posts.likes_count,posts.post_content,posts.post_src,posts.file_type,posts.id,posts.created_at,users.name,users.pfpurl,users.file_src 
                          FROM follows Join posts ON follows.follow_user_id = posts.user_id JOIN users on follows.follow_user_id = users.id Where follows.user_id = $1 ORDER BY posts.created_at DESC`
       return db.query(queryText,[id]);
     }
-
-
+    static following(id) {
+      const queryText = `SELECT follow_user_id FROM follows where user_id = $1` 
+      return db.query(queryText,[id])
+    }
+    static commentCount() {
+      const queryText = `SELECT posts.id,COUNT(posts.id) FROM comments JOIN posts ON comments.post_id = posts.id GROUP BY posts.id`
+      return db.query(queryText)
+    }
 
 }
 

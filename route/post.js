@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.post('/app/users/:id/post', postController.userPost);
 router.delete('/app/users/:id/posts/:id', postController.deletePost)
+router.post('/app/users/:id/posts/:id',postController.comment)
+router.get('/app/users/:id/posts/:id',postController.getComments)
 
  
 // api route for users posts

@@ -48,7 +48,10 @@ class Posts{
     const queryText = 'DELETE FROM posts WHERE id = $1;';
     return db.query(queryText,[id]);
    }
-
+   static updateLikes(likes,id) {
+       const queryText = `UPDATE posts SET likes_count = $1 WHERE id = $2;`
+       return db.query(queryText,[likes,id])
+   }
  
 
 

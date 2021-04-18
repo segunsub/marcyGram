@@ -22,6 +22,7 @@ router.post('/app/users/:id/follow/:id', userController.followUser)
 router.delete('/app/users/:id/posts/:id', postRoute)
 router.post('/app/users/:id/posts/:id',postRoute)
 router.get('/app/users/:id/posts/:id',postRoute)
+router.patch('/app/users/:id/posts/:id',postRoute)
 router.post('/app/users/:id/post', postRoute)  
 
 //api routes

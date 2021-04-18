@@ -1,8 +1,7 @@
 const AWS = require('aws-sdk');
 const auth = require('../db/auth')
-// console.log(auth.aws().accessKey)
-const key = auth.aws().accessKey
-const secret = auth.aws().secretAccessKey
+const key = auth.accessKey
+const secret = auth.secretAccessKey
 
 
 const s3 = new AWS.S3({

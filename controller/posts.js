@@ -62,11 +62,22 @@ const getComments = async (req, res)=>{
         res.sendStatus(500)
     }
 }
+const updateLike = async (req, res)=>{
+    try {
+        const postId = parseInt(req.params.id)
+        const totalLike = parseInt(req.body.amount) + parseInt(req.body.prev)
+        await Posts.updateLikes(totalLike,postId).then(res.status(200).send('ok'))
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
+}
 
 
 module.exports = {
     userPost,
     deletePost,
     comment,
-    getComments
+    getComments,
+    updateLike
 }   

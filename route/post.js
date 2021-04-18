@@ -6,6 +6,7 @@ const router = express.Router();
 router.post('/app/users/:id/post', postController.userPost);
 router.delete('/app/users/:id/posts/:id', postController.deletePost)
 router.post('/app/users/:id/posts/:id',postController.comment)
+router.patch('/app/users/:id/posts/:id',postController.updateLike)
 router.get('/app/users/:id/posts/:id',postController.getComments)
 
  

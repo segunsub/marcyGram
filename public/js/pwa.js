@@ -15,18 +15,54 @@ viewComments()
 
 
 function like() {
-  let iconController = document.getElementById('likeIcon')
-  if(iconController) {
+  let likeIcon = document.getElementById('eachPost')
+
+  if(likeIcon) {
     let count = 0
-    iconController.addEventListener('click',(e)=> {
+    let post = 0
+    likeIcon = Array.from(likeIcon.children)
+    likeIcon.forEach(posts => {
+      const span = posts.children[3]
+      const iconController = posts.children[2].children[0].children[0]
+      let likeCount = posts.children[2].children[0].children[1]
+      likeCount.innerHTML = `
+        ${likeCount.id} Likes`
+      iconController.addEventListener('click',(e)=> {
       if(count >= 10) {
         e.target.classList = ["heart outline like icon"]
       }else {
+        post++
         e.target.classList = ["heart like icon"]
         count++
+        let add = parseInt(likeCount.id) + count
+        likeCount.innerHTML = `
+        ${add} Likes`
+        if(post === 10){
+          postLikes(span.id,span.title,count,likeCount.id)
+        }
       }
     } )
+    })
   } 
+}
+async function postLikes(postId,userId,clickAmount,prevlike) {
+      const formData = {"amount" : clickAmount, "prev" : prevlike}
+      console.log(formData)
+      $.ajax({
+        type        : 'PATCH', // define the type of HTTP verb we want to use 
+        url         : `/app/users/${userId}/posts/${postId}`, // the 
+        data        : formData, // our data object
+                    encode          : true,
+                    // success: function(response, textStatus, jqXHR) {
+                    //   // img.src = response;
+                    //   console.log(response)
+                    // },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    },
+    })
 }
 function pwa() {
   if ('serviceWorker' in navigator) {
@@ -177,10 +213,10 @@ async function updateUserProfile() {
     };
     // process the form
     $.ajax({
-        type        : 'PATCH', // define the type of HTTP verb we want to use (POST for our form)
-        url         : `/app/users/${id}`, // the url where we want to POST
+        type        : 'PATCH', // define the type of HTTP verb we want to use 
+        url         : `/app/users/${id}`, // the 
         data        : formData, // our data object
-        dataType    : 'json', // what type of data do we expect back from the server
+        dataType    : 'json', // what expect back from the server
                     encode          : true,
                     success: function(response, textStatus, jqXHR) {
                       // img.src = response;
@@ -366,11 +402,20 @@ function modalComment(comments) {
      if(comments.length){
          comments.forEach(comment => {
            const p = document.createElement('p')
+           p.style.background = '#191818'
+           p.style.borderRadius = '22px'
+           p.style.paddingLeft = '5px'
+           p.style.height = '2em'
            p.innerText = comment.content
            body.append(p)
          })
      }else {
        body.innerText = 'No comments make some'
      }
+
+
+     commentModal.addEventListener('hidden.bs.modal', function (event) {
+       body.innerHTML = ''
+     })
   }
 }

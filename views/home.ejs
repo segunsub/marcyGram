@@ -42,7 +42,9 @@
               <a>
                 <% feed.forEach(feeds => { %>
                   <% if (element.id === feeds.id) { %>
-                    <%= feeds.count %>  
+                    <span id="<%= feeds.count %> ">
+                      <%= feeds.count %> 
+                    </span> 
                   <% } %> 
              <% }) %>
               comments

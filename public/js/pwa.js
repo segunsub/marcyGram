@@ -332,17 +332,18 @@ function addComment() {
      let form = Array.from(commentForm.children)
      form.forEach(posts => {
        const span = posts.children[3]
+       const commentCount = posts.children[2].children[2].children[0]
        const formData = posts.children[4].children[0].children[0]
       //  console.log(formData)
        formData.addEventListener('submit', async(e) => {
-          await postComment(span,formData)
+          await postComment(span,formData,commentCount)
           e.preventDefault()
        })
      })
   }
 }
 
-async function postComment(span,form) {
+async function postComment(span,form,cCount) {
   // console.log(span.id)
   const userId = span.title
   const postId = span.id
@@ -356,7 +357,8 @@ async function postComment(span,form) {
       data : formData, 
       encode          : true,
      success: function(response, textStatus, jqXHR) {
-       span.innerText = input.value
+       span.innerText = input.value 
+       cCount.innerHTML = parseInt(cCount.innerText) + 1
        input.value = ''
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -406,6 +408,7 @@ function modalComment(comments) {
            p.style.borderRadius = '22px'
            p.style.paddingLeft = '5px'
            p.style.height = '2em'
+           p.style.fontSize = 'large'
            p.innerText = comment.content
            body.append(p)
          })

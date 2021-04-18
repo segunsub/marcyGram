@@ -56,8 +56,12 @@ class Users{
     }
     static deleteUser (id) {
       const queryPost = 'DELETE FROM posts WHERE user_id = $1;'
+      const queryComment = 'DELETE FROM comments WHERE user_id = $1;'
+      const queryFollow = 'DELETE FROM follows WHERE user_id = $1;'
       const queryText = 'DELETE FROM users WHERE id = $1;';
         db.query(queryPost,[id]);
+        db.query(queryComment,[id])
+        db.query(queryFollow,[id])
       return db.query(queryText,[id]);
     }
     static followUser(userId,followId) {

@@ -4,7 +4,7 @@
     "description": "Insta for marcy labs",
     "icons": [
       {
-        "src": "/../images/temp.png",
+        "src": "/../images/appIcon.png",
         "sizes": "512x512",
         "type": "image/png",
         "purpose": "any maskable"

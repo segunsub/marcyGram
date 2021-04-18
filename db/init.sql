@@ -21,7 +21,7 @@ CREATE TABLE users (
         likes_count INT DEFAULT 0,
         post_content TEXT,
         post_src TEXT,
-        file_type VARCHAR(255)
+        file_type VARCHAR(255),
         created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
     );
     

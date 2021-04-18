@@ -230,6 +230,7 @@ const deleteUser = async (req, res) => {
         await Users.deleteUser(id)
         res.status(200).send({"redirect":'/'})
     } catch (error) {
+        console.log(error)
         res.status(500);
     }
 }

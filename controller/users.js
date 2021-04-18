@@ -2,7 +2,6 @@
 const Users = require('../model/Users')
 const upload = require('./mediaUpload')
 const bcrypt = require('bcrypt');
-const { post } = require('../route/post');
 
 const saltRounds = 10;
 

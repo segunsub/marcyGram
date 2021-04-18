@@ -11,7 +11,7 @@ const Port = process.env.PORT || 3000
 
 const app = express()
 app.use(session({
-  secret: auth.name,
+  secret: process.env.name || auth.name,
   resave: false,
   saveUninitialized: false,
   name: "marcyGram"

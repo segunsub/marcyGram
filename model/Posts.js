@@ -45,7 +45,7 @@ class Posts{
     return db.query(queryText, [id]).then(results => results.rows[0]);
    }
    static deletePost(id){
-    const queryText = 'DELETE FROM posts WHERE id = $1;';
+    const queryText = 'DELETE FROM posts WHERE id = $1 RETURNING *;';
     return db.query(queryText,[id]);
    }
    static updateLikes(likes,id) {

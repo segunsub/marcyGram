@@ -34,7 +34,7 @@ const deletePost = async (req, res)=>{
         const userId = req.session.user.id;
         // console.log(postId,userid)
         await Posts.deletePost(postId, userId).then(resp => {
-            console.log('rows',resp.rows)
+            // console.log('rows',resp.rows)
             res.status(200).send({"ok":`${resp.rows[0].id}`})
         });
         

@@ -157,24 +157,30 @@ const editProfile = async (req, res) => {
 }
 
 const follow = async (req, res) => {
-   await Users.getUsers().then(async users => {    
-    await Users.getAllPosts().then(posts => {
-        users.map((each, i) => {
-            if(posts[i]) {
-                each.postCount = posts[i].count
-            }else{
-                each.postCount = 0
-            }
-            })
-        const all = users.filter(each => each.id !== req.session.user.id)
-         res.status(200)
-        res.render('follow', {
-            title: 'Follow User',
-            user: req.session.user,
-            array: all
-        })
-       })
-   })
+    try {
+        await Users.getUsers().then(async users => {    
+            await Users.getAllPosts().then(posts => {
+                users.map((each, i) => {
+                    if(posts[i]) {
+                        each.postCount = posts[i].count
+                    }else{
+                        each.postCount = 0
+                    }
+                    })
+                const all = users.filter(each => each.id !== req.session.user.id)
+                 res.status(200)
+                res.render('follow', {
+                    title: 'Follow User',
+                    user: req.session.user,
+                    array: all
+                })
+               })
+           })
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
+
 
 }
 const update = async (req, res) => {
@@ -238,7 +244,7 @@ const followUser = async (req, res) => {
         const followId = req.params.id;
         const userId = req.session.user.id
 
-
+          console.log(followId,userId)
         await Users.followUser(userId,followId).then(res.sendStatus(200))
         // req.session.destroy();
         // await Users.deleteUser(id)

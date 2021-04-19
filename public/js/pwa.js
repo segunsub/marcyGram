@@ -308,7 +308,8 @@ function followUser() {
   }
 }
 async function follow(e) {
-  const followIcon = e.path[0]
+  const followIcon = e.target
+
    const userID = followIcon.tabIndex
   const followId = followIcon.title
   $.ajax({

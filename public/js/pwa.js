@@ -11,6 +11,15 @@ updateprofile()
 followUser()
 addComment()
 viewComments()
+
+// const form = document.getElementById('loginForm')
+// if(form) {
+
+// }
+$("#loginForm").submit(function(e) {
+  e.preventDefault()
+  loginValidation(e)
+})
 }
 
 
@@ -422,4 +431,33 @@ function modalComment(comments) {
        body.innerHTML = ''
      })
   }
+}
+
+async function loginValidation(e) {
+  const emailinput = e.target[0]
+  const passInput = e.target[1]
+  //is-invalid
+  const formData = {
+    'useremail'              : $('input[name=useremail]').val(),
+    'userpassword'      : $('input[name=userpassword]').val()
+};
+$.ajax({
+  url : `/login`, 
+  type: "POST",
+  data : formData, 
+  encode          : true,
+ success: function(response, textStatus, jqXHR) {
+   if(response === '/') {
+    window.location.href = response
+   }else {
+     emailinput.classList = [response]
+     passInput.classList = [response]
+   }
+  },
+  error: function (jqXHR, textStatus, errorThrown) {
+  console.log(jqXHR);
+      console.log(textStatus);
+      console.log(errorThrown);
+  },
+});
 }

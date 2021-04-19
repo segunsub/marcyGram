@@ -118,10 +118,10 @@ const userLogin = async (req, res) => {
         if(user && validPassword){
             req.session.user = user
             res.status(200)
-            res.redirect(`/`)
+            res.send(`/`)
             
         }else {
-            return res.status(403).send("Incorrect Login Info");
+            return res.status(203).send("form-control is-invalid");
         }
     } catch (err){
         res.send(err)

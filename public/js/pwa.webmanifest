@@ -10,7 +10,7 @@
         "purpose": "any maskable"
       }
     ],
-    "start_url": "/",
+    "start_url": "/login",
     "display": "fullscreen",
     "theme_color": "#1a2c75",
     "background_color": "#1a2c75"

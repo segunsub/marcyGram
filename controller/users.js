@@ -119,6 +119,7 @@ const userLogin = async (req, res) => {
             return res.status(203).send("form-control is-invalid");
         }
     } catch (err){
+        console.log(err)
         res.send(err)
 
     }

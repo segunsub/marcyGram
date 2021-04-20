@@ -66,7 +66,8 @@ const getComments = async (req, res)=>{
 const updateLike = async (req, res)=>{
     try {
         const postId = parseInt(req.params.id)
-        const totalLike = parseInt(req.body.amount) + parseInt(req.body.prev)
+        const like = parseInt(req.body.amount) * parseInt(req.body.times)
+        const totalLike = parseInt(like) + parseInt(req.body.prev)
         await Posts.updateLikes(totalLike,postId).then(res.status(200).send('ok'))
     } catch (error) {
         console.log(error)

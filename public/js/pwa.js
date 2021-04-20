@@ -25,6 +25,7 @@ function like() {
   if(likeIcon) {
     let count = 0
     let post = 0
+    let amt = 0
     likeIcon = Array.from(likeIcon.children)
     likeIcon.forEach(posts => {
       const span = posts.children[3]
@@ -35,6 +36,7 @@ function like() {
       iconController.addEventListener('click',(e)=> {
       if(count >= 10) {
         e.target.classList = ["heart outline like icon"]
+        count = 0
       }else {
         post++
         e.target.classList = ["heart like icon"]
@@ -43,15 +45,17 @@ function like() {
         likeCount.innerHTML = `
         ${add} Likes`
         if(post === 10){
-          postLikes(span.id,span.title,count,likeCount.id)
+          amt++
+          postLikes(span.id,span.title,count,likeCount.id,amt)
+          post = 0
         }
       }
     } )
     })
   } 
 }
-async function postLikes(postId,userId,clickAmount,prevlike) {
-      const formData = {"amount" : clickAmount, "prev" : prevlike}
+async function postLikes(postId,userId,clickAmount,prevlike,amt) {
+      const formData = {"amount" : clickAmount, "prev" : prevlike, "times": amt}
       console.log(formData)
       $.ajax({
         type        : 'PATCH', // define the type of HTTP verb we want to use 

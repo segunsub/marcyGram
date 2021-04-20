@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const userRoute = require('./route/user')
 const session = require('express-session')
-// const auth = require('./db/auth')
+const auth = require('./db/auth')
 const methodOverride = require('method-override')
 
 const Port = process.env.PORT || 3000

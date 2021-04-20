@@ -73,12 +73,21 @@ const updateLike = async (req, res)=>{
         res.sendStatus(500)
     }
 }
-
+const saveLike = async (req, res)=>{
+    try {
+        const CommenId = parseInt(req.params.id)
+        Posts.saveLike(CommenId).then(res.status(200).send('ok'))
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
+}
 
 module.exports = {
     userPost,
     deletePost,
     comment,
     getComments,
-    updateLike
+    updateLike,
+    saveLike
 }   

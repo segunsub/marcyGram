@@ -12,10 +12,6 @@ followUser()
 addComment()
 viewComments()
 
-// const form = document.getElementById('loginForm')
-// if(form) {
-
-// }
 $("#loginForm").submit(function(e) {
   e.preventDefault()
   loginValidation(e)
@@ -392,8 +388,7 @@ function viewComments() {
           url : `/app/users/${userId}/posts/${postId}`,
           type: "GET",  
          success: function(response, textStatus, jqXHR) {
-           console.log(response)
-          modalComment(response)
+          modalComment(response,userId,postId)
           $("#commentModal").modal('show');
           },
           error: function (jqXHR, textStatus, errorThrown) {
@@ -407,26 +402,47 @@ function viewComments() {
     })
  }
 }
-function modalComment(comments) {
+function modalComment(comments,userId,postId) {
   const commentModal = document.getElementById('commentModal')
   if(commentModal) {
     const body = commentModal.children[0].children[0].children[1]
      if(comments.length){
          comments.forEach(comment => {
            const p = document.createElement('p')
-           p.style.background = '#191818'
            p.style.borderRadius = '22px'
            p.style.paddingLeft = '5px'
            p.style.height = '2em'
            p.style.fontSize = 'large'
+           p.style.display = 'flex'
+           p.style.justifyContent = 'space-between'
+           const i = document.createElement('i')
+           i.classList = ['heart outline icon']
            p.innerText = comment.content
-           body.append(p)
+           p.append(i)
+           if(comment.loved) {
+            i.classList = ["heart icon"]
+            i.style.color = 'red'
+           }else {
+            i.addEventListener('click',(e)=> {
+              i.classList = ["heart icon"]
+              i.style.color = 'red'
+              commentLike(userId,postId,comment.id)
+            })
+           }
+           const hr = document.createElement('hr')
+           body.append(p,hr)
          })
      }else {
-       body.innerText = 'No comments make some'
+       body.innerText = 'No comments'
      }
 
+async function commentLike(userId,postId,commentId) {
+  $.ajax({
+    type        : 'PATCH',
+    url         : `/app/users/${userId}/posts/${postId}/comment/${commentId}`
+})
 
+}
      commentModal.addEventListener('hidden.bs.modal', function (event) {
        body.innerHTML = ''
      })

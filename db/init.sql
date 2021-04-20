@@ -40,4 +40,5 @@ CREATE TABLE users (
         created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
     );
     ALTER TABLE follows ADD UNIQUE (user_id,follow_user_id);
+    ALTER TABLE comments ADD COLUMN loved INT DEFAULT 0;
 

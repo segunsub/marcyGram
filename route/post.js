@@ -8,7 +8,7 @@ router.delete('/app/users/:id/posts/:id', postController.deletePost)
 router.post('/app/users/:id/posts/:id',postController.comment)
 router.patch('/app/users/:id/posts/:id',postController.updateLike)
 router.get('/app/users/:id/posts/:id',postController.getComments)
-
+router.patch('/app/users/:id/posts/:id/comment/:id', postController.saveLike) 
  
 // api route for users posts
 

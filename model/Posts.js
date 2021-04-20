@@ -52,6 +52,10 @@ class Posts{
        const queryText = `UPDATE posts SET likes_count = $1 WHERE id = $2;`
        return db.query(queryText,[likes,id])
    }
+   static saveLike(id) {
+    const queryText = `UPDATE comments SET loved = $1 WHERE id = $2`
+    return db.query(queryText,[1,id])
+   }
  
 
 

@@ -17,7 +17,6 @@ const middleware = (req, res, next) => {
     // next()
 }
 const loginMiddleWare = (req, res, next) => {
-    console.log(req.method,req.path)
     next()
     // if(req.session.user) {
     //     next()
@@ -36,6 +35,13 @@ const home = async (req, res) => {
     // console.log(req.session)
         const id = parseInt(req.session.user.id)
         await Users.followingsPosts(id).then(async posts => {
+            posts.rows.forEach(post => {
+                const time = Math.abs((post.created_at.getTime() / 1000).toFixed(0))
+                const currDate = Math.abs((new Date().getTime() / 1000).toFixed(0))
+                const diff = currDate - time
+                const hours = Math.floor(diff/ 3600)
+                post.timeSpan = hours
+            })
             await Users.commentCount().then(comments => {
             res.status(200).render('home', {
                 title: 'Home',
@@ -80,17 +86,6 @@ const userSignUp = async (req, res) => {
                         }); 
                   }
               })
-                // console.log(await uploadFile(file).response)
-                // console.log(`https://d3ha1ibsrmz5u7.cloudfront.net/${file.name}`)
-            
-            // const {userpassword} = req.body
-            // bcrypt.hash(userpassword, saltRounds).then(async hash => {
-            // // Store hash in your password DB.
-            // req.body.userpassword = hash
-            // const createUser = await Users.signUp(req.body, req.files.formFile);
-            // req.session.user = createUser
-            // res.redirect(`/`)
-        // });
         }
         // when there is no image the user gets a default profile pic
         else {
@@ -133,7 +128,6 @@ const userprofile = async (req, res) => {
         const id = parseInt(req.params.id)
        await Users.getUser(id).then(async user => {
            await Users.getPosts(id).then(posts => {
-            console.log(user,posts)
             res.render('userProfile', {
                 title: 'User Profile',
                 user: user,
@@ -184,7 +178,6 @@ const follow = async (req, res) => {
 
 }
 const update = async (req, res) => {
-    console.log(req.body)
     
     const {userpassword} = req.body
     await Users.getUser(req.params.id).then(async user => {
@@ -208,13 +201,10 @@ const logout = async (req, res) => {
 const updatepfp = async (req, res) => {
     try {
         if(req.files) {
-           
-            console.log(req.files)
             const id = parseInt(req.params.id)
             const file = req.files.pfp
             const {uploadFile} = upload
               await uploadFile(file).then(async data => {
-                  console.log(data)
                   Users.updatePfp(file,id).then(link => {
                       req.session.user.file_src = link.file_src
                      res.status(200).send(link.file_src)
@@ -243,8 +233,6 @@ const followUser = async (req, res) => {
     try {
         const followId = req.params.id;
         const userId = req.session.user.id
-
-          console.log(followId,userId)
         await Users.followUser(userId,followId).then(res.sendStatus(200))
         // req.session.destroy();
         // await Users.deleteUser(id)

@@ -24,6 +24,8 @@ router.post('/app/users/:id/posts/:id',postRoute)
 router.get('/app/users/:id/posts/:id',postRoute)
 router.patch('/app/users/:id/posts/:id',postRoute)
 router.post('/app/users/:id/post', postRoute)  
+router.patch('/app/users/:id/posts/:id/comment/:id', postRoute)  
+
 
 //api routes
 

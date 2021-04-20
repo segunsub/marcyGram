@@ -22,7 +22,7 @@ class Users{
       }
 
       static getUsers (){
-        const queryText = 'SELECT * FROM users ORDER BY id;';
+        const queryText = 'SELECT * FROM users ORDER BY created_at DESC';
         return db.query(queryText).then(results => results.rows);
       }
 

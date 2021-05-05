@@ -155,19 +155,19 @@ const follow = async (req, res) => {
     try {
         await Users.getUsers().then(async users => {    
             await Users.getAllPosts().then(posts => {
-                users.map((each, i) => {
-                    if(posts[i]) {
-                        each.postCount = posts[i].count
-                    }else{
-                        each.postCount = 0
-                    }
+                users.map(each => {
+                        const postObj = posts.find(pObj => pObj.user_id === each.id)
+                        if(postObj) {
+                            each.postCount = postObj.count
+                        }else {
+                            each.postCount = 0
+                        }
                     })
-                const all = users.filter(each => each.id !== req.session.user.id)
                  res.status(200)
                 res.render('follow', {
                     title: 'Follow User',
                     user: req.session.user,
-                    array: all
+                    array: users
                 })
                })
            })
